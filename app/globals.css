@@ -2,41 +2,47 @@
 
 :root {
   /* ── Sage Press palette ── */
-  --bg:                  #F2F5F0;
-  --surface:             #EBF0E6;
-  --card-bg:             #FFFFFF;
-  --input-bg:            #F7FAF5;
-  --hint-bg:             #E4EBE0;
-  --image-panel-bg:      #1C2E1C;
-  --image-panel-overlay: linear-gradient(160deg, rgba(245,200,66,0.06) 0%, transparent 60%);
-  --avatar-bg:           #2A3E2A;
-  --overlay-bg:          rgba(28, 46, 28, 0.55);
+  --bg: #f2f5f0;
+  --surface: #ebf0e6;
+  --card-bg: #ffffff;
+  --input-bg: #f7faf5;
+  --hint-bg: #e4ebe0;
+  --image-panel-bg: #1c2e1c;
+  --image-panel-overlay: linear-gradient(
+    160deg,
+    rgba(245, 200, 66, 0.06) 0%,
+    transparent 60%
+  );
+  --avatar-bg: #2a3e2a;
+  --overlay-bg: rgba(28, 46, 28, 0.55);
 
-  --accent:              #E8B820;
-  --accent-hover:        #CFA010;
-  --accent-glow:         rgba(232, 184, 32, 0.18);
-  --accent-shadow:       rgba(232, 184, 32, 0.38);
+  --accent: #e8b820;
+  --accent-hover: #cfa010;
+  --accent-glow: rgba(232, 184, 32, 0.18);
+  --accent-shadow: rgba(232, 184, 32, 0.38);
 
-  --text-primary:        #1C2E1C;
-  --text-secondary:      #3A5238;
-  --text-muted:          #5A7258;
-  --text-faint:          #8AA485;
+  --text-primary: #1c2e1c;
+  --text-secondary: #3a5238;
+  --text-muted: #5a7258;
+  --text-faint: #8aa485;
 
-  --border:              #C8D8C2;
-  --shadow:              rgba(28, 46, 28, 0.08);
-  --shadow-hover:        rgba(28, 46, 28, 0.16);
+  --border: #c8d8c2;
+  --shadow: rgba(28, 46, 28, 0.08);
+  --shadow-hover: rgba(28, 46, 28, 0.16);
 
-  --error:               #B33A3A;
+  --error: #b33a3a;
 
-  --btn-text:            #1C2E1C;
+  --btn-text: #1c2e1c;
 
   /* Typography */
   --font-display: "Playfair Display", Georgia, serif;
-  --font-body:    "DM Sans", system-ui, sans-serif;
-  --font-label:   "DM Mono", monospace;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-label: "DM Mono", monospace;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -54,8 +60,13 @@ body {
   min-height: 100vh;
 }
 
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font-family: inherit;
+}
 
 ::selection {
   background: var(--accent-glow);
