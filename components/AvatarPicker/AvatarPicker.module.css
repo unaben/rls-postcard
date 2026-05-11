@@ -1,0 +1,70 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2.5px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  background: var(--avatar-bg);
+}
+
+.option:hover .ring {
+  border-color: var(--accent);
+  transform: scale(1.06);
+}
+
+.ring.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.option:hover .name,
+.selectedName {
+  color: var(--accent);
+}

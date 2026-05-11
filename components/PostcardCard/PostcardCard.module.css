@@ -1,0 +1,226 @@
+.card {
+  display: flex;
+  align-items: stretch;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: slideUp 0.4s ease both;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px var(--shadow-hover);
+}
+
+.card.isOwner {
+  border-color: var(--border);
+}
+
+.card.isOwner:hover {
+  border-color: rgba(192, 123, 42, 0.35);
+}
+
+.imagePanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 20px;
+  background: var(--image-panel-bg);
+  min-width: 130px;
+  border-right: 1.5px solid var(--border);
+  position: relative;
+}
+
+.imagePanel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--image-panel-overlay);
+  pointer-events: none;
+}
+
+.avatarWrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+  background: var(--avatar-bg);
+  flex-shrink: 0;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarLabel {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.ownerBadge {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  background: rgba(192, 123, 42, 0.15);
+  border: 1px solid rgba(192, 123, 42, 0.3);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+.body {
+  flex: 1;
+  padding: 20px 56px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.indexBadge {
+  position: absolute;
+  top: 14px;
+  right: 60px;
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0;
+  padding-right: 8px;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.content {
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.date {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+}
+
+.ownerName {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+/* Action buttons — vertical strip on the right edge */
+.actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .actions,
+.actions:focus-within {
+  opacity: 1;
+}
+
+.actionBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  color: var(--text-muted);
+}
+
+.actionBtn:hover {
+  transform: scale(1.08);
+}
+
+.editBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.deleteBtn:hover {
+  border-color: var(--error);
+  color: var(--error);
+  background: rgba(179, 58, 58, 0.08);
+}
+
+.stamp {
+  position: absolute;
+  bottom: 14px;
+  right: 58px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
