@@ -1,26 +1,63 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap");
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Sage Press palette ── */
+  --bg:                  #F2F5F0;
+  --surface:             #EBF0E6;
+  --card-bg:             #FFFFFF;
+  --input-bg:            #F7FAF5;
+  --hint-bg:             #E4EBE0;
+  --image-panel-bg:      #1C2E1C;
+  --image-panel-overlay: linear-gradient(160deg, rgba(245,200,66,0.06) 0%, transparent 60%);
+  --avatar-bg:           #2A3E2A;
+  --overlay-bg:          rgba(28, 46, 28, 0.55);
+
+  --accent:              #E8B820;
+  --accent-hover:        #CFA010;
+  --accent-glow:         rgba(232, 184, 32, 0.18);
+  --accent-shadow:       rgba(232, 184, 32, 0.38);
+
+  --text-primary:        #1C2E1C;
+  --text-secondary:      #3A5238;
+  --text-muted:          #5A7258;
+  --text-faint:          #8AA485;
+
+  --border:              #C8D8C2;
+  --shadow:              rgba(28, 46, 28, 0.08);
+  --shadow-hover:        rgba(28, 46, 28, 0.16);
+
+  --error:               #B33A3A;
+
+  --btn-text:            #1C2E1C;
+
+  /* Typography */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body:    "DM Sans", system-ui, sans-serif;
+  --font-label:   "DM Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+::selection {
+  background: var(--accent-glow);
+  color: var(--text-primary);
 }

@@ -1,0 +1,141 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.left {
+  background: var(--image-panel-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      ellipse at 30% 50%,
+      rgba(192, 123, 42, 0.18) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(192, 123, 42, 0.08) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.brandIcon {
+  width: 32px;
+  height: 32px;
+  color: var(--accent);
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.02em;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.heroTag {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+
+.heroTitle em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.heroSub {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.decorGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 200px;
+  position: relative;
+  z-index: 1;
+}
+
+.decorCard {
+  aspect-ratio: 3 / 2;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.decorCard:nth-child(2) {
+  border-color: rgba(192, 123, 42, 0.3);
+  background: rgba(192, 123, 42, 0.08);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 52px;
+  background: var(--surface);
+}
+
+@media (max-width: 768px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .left {
+    padding: 40px 28px;
+    min-height: 260px;
+  }
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+  .decorGrid {
+    display: none;
+  }
+  .right {
+    padding: 40px 24px;
+    align-items: flex-start;
+  }
+}
