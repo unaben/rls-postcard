@@ -1,11 +1,22 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "@/components/LoginForm/LoginForm";
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./homePage.module.css";
 
 export default function HomePage() {
   const router = useRouter();
+  const { isAuthenticated, checked } = useAuth();
+
+  useEffect(() => {
+    if (checked && isAuthenticated) {
+      router.replace("/create");
+    }
+  }, [checked, isAuthenticated, router]);
+
+  if (!checked) return null;
 
   return (
     <main className={styles.page}>
@@ -53,7 +64,7 @@ export default function HomePage() {
       </div>
 
       <div className={styles.right}>
-        <LoginForm onSuccess={() => router.push("/create")} />
+        <LoginForm />
       </div>
     </main>
   );

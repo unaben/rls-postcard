@@ -2,33 +2,31 @@
 
 import { useState } from "react";
 import cn from "classnames";
-import type { LoginFormProps, LoginFormValues } from "./LoginForm.types";
+import type { LoginFormValues } from "./LoginForm.types";
 import { MOCK_USERS } from "@/utils/constants";
 import { validate } from "./utils/validate";
+import { useRouter } from "next/navigation";
+import { handleSubmit } from "./utils/handleSubmit";
 import styles from "./LoginForm.module.css";
+
 
 const initialState = { email: "", password: "" };
 
-export default function LoginForm({ onSuccess }: LoginFormProps) {
+export default function LoginForm() {
+  const router = useRouter();
   const [values, setValues] = useState<LoginFormValues>(initialState);
   const [errors, setErrors] = useState<Partial<LoginFormValues>>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string>("");
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    if (!validate(values, setErrors)) return;
-
-    setLoading(true);
-    setAuthError("");
-
-    try {
-      onSuccess();
-    } catch {
-      setAuthError("Invalid email or password.");
-    } finally {
-      setLoading(false);
-    }
+  const submitArgs = {
+    router,
+    setAuthError,
+    setErrors,
+    setLoading,
+    setValues,
+    validate,
+    values,
   };
 
   return (
@@ -53,7 +51,11 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         </ul>
       </div>
 
-      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      <form
+        className={styles.form}
+        onSubmit={(e) => handleSubmit(e, submitArgs)}
+        noValidate
+      >
         <div className={styles.field}>
           <label className={styles.fieldLabel} htmlFor="email">
             Email

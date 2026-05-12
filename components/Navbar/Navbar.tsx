@@ -1,13 +1,22 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useGreeting } from "@/hooks/useGreeting";
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+  const greeting = useGreeting();
   const isCreatePage = pathname.includes("/create");
   const isPostcardsPage = pathname.includes("/postcards");
+
+  const displayName =
+    user?.user_metadata?.display_name ?? user?.email?.split("@")[0] ?? "";
+    
+  const firstName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
 
   return (
     <>
@@ -33,7 +42,17 @@ export default function Navbar() {
             </svg>
             <span className={styles.brandName}>Postcards</span>
           </div>
+
           <div className={styles.actions}>
+            {greeting && firstName && (
+              <div className={styles.greeting}>
+                <span className={styles.greetingName}>
+                  <span className={styles.greetingText}>{greeting}</span>{" "}
+                  <span className={styles.greetingAccent}>{firstName}</span>
+                </span>
+              </div>
+            )}
+
             {isPostcardsPage && (
               <button
                 className={styles.navBtnAccent}
@@ -50,7 +69,7 @@ export default function Navbar() {
                 View all
               </button>
             )}
-            <button className={styles.btnGhost} onClick={() => {}}>
+            <button className={styles.btnGhost} onClick={() => logout()}>
               Sign out
             </button>
           </div>
