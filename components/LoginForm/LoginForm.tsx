@@ -4,7 +4,6 @@ import { useState } from "react";
 import cn from "classnames";
 import type { LoginFormValues } from "./LoginForm.types";
 import { MOCK_USERS } from "@/utils/constants";
-import { validate } from "./utils/validate";
 import { useRouter } from "next/navigation";
 import { handleSubmit } from "./utils/handleSubmit";
 import styles from "./LoginForm.module.css";
@@ -25,7 +24,6 @@ export default function LoginForm() {
     setErrors,
     setLoading,
     setValues,
-    validate,
     values,
   };
 

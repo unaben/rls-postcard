@@ -1,11 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export type handleSubmitArgs = {
-  validate(
-    values: LoginFormValues,
-    setErrors: Dispatch<SetStateAction<Partial<LoginFormValues>>>
-  ): boolean;
+export type HandleSubmitLoginFormArgs = {
   values: LoginFormValues;
   setErrors: Dispatch<SetStateAction<Partial<LoginFormValues>>>;
   setLoading: Dispatch<SetStateAction<boolean>>;

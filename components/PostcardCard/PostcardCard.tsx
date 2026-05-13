@@ -1,18 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import cn from "classnames";
-import { PostcardCardProps } from "./PostcardCard.types";
+import type { PostcardCardProps } from "./PostcardCard.types";
+import EditModal from "../EditModal/EditModal";
+import ConfirmDialog from "../ConfirmDialog/ConfirmDialog";
+import { handleConfirmDelete, handleSaveEdit } from "../PostcardForm/utils";
 import styles from "./PostcardCard.module.css";
 
 export default function PostcardCard(props: PostcardCardProps) {
   const { postcard, index, isOwner, onDelete, onUpdate } = props;
+
+  const [showDelete, setShowDelete] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const formatted = new Date(postcard.createdAt).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
+  const confirmationMessage = `"${postcard.title}" will be permanently removed. This cannot be undone.`;
 
   return (
     <>
@@ -67,42 +77,66 @@ export default function PostcardCard(props: PostcardCardProps) {
           </svg>
         </div>
 
-        <div className={styles.actions}>
-          <button
-            className={cn(styles.actionBtn, styles.editBtn)}
-            onClick={() => {}}
-            title="Edit postcard"
-            aria-label="Edit postcard"
-          >
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M11 2l3 3-9 9H2v-3l9-9z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-
-          <button
-            className={cn(styles.actionBtn, styles.deleteBtn)}
-            onClick={() => {}}
-            title="Delete postcard"
-            aria-label="Delete postcard"
-          >
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 10h8l1-10"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
+        {isOwner && (
+          <div className={styles.actions}>
+            <button
+              className={cn(styles.actionBtn, styles.editBtn)}
+              onClick={() => setShowEdit(true)}
+              title="Edit postcard"
+              aria-label="Edit postcard"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M11 2l3 3-9 9H2v-3l9-9z"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              className={cn(styles.actionBtn, styles.deleteBtn)}
+              onClick={() => setShowDelete(true)}
+              title="Delete postcard"
+              aria-label="Delete postcard"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 10h8l1-10"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
       </article>
+      {showDelete && (
+        <ConfirmDialog
+          title="Delete this postcard?"
+          message={confirmationMessage}
+          confirmLabel="Delete"
+          onConfirm={() =>
+            handleConfirmDelete(onDelete, setShowDelete, setDeleting, postcard)
+          }
+          onCancel={() => setShowDelete(false)}
+          loading={deleting}
+        />
+      )}
+
+      {showEdit && (
+        <EditModal
+          postcard={postcard}
+          onSave={(patch) =>
+            handleSaveEdit(patch, setSaving, onUpdate, postcard, setShowEdit)
+          }
+          onClose={() => setShowEdit(false)}
+          loading={saving}
+        />
+      )}
     </>
   );
 }

@@ -1,13 +1,35 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PostcardCard from "@/components/PostcardCard/PostcardCard";
-import { Postcard } from "@/components/PostcardCard/PostcardCard.types";
+import { usePostcards } from "@/hooks/usePostcards";
+import { useAuth } from "@/hooks/useAuth";
+import Loader from "@/components/Loader/Loader";
+import Pagination from "@/components/Pagination/Pagination";
 import styles from "./postcards.module.css";
 
 export default function PostcardsPage() {
   const router = useRouter();
-  const postcards: Array<Postcard> = [];
+  const { isAuthenticated, currentUserId, checked } = useAuth();
+  const {
+    postcards,
+    allPostcards,
+    loading,
+    currentPage,
+    totalPages,
+    handlePageChange,
+    handleDelete,
+    handleUpdate,
+  } = usePostcards();
+
+  useEffect(() => {
+    if (checked && !isAuthenticated) router.replace("/");
+  }, [checked, isAuthenticated, router]);
+
+  if (!checked || !isAuthenticated) return null;
+
+  const startIdx = (currentPage - 1) * 5;
 
   return (
     <div className={styles.page}>
@@ -15,9 +37,17 @@ export default function PostcardsPage() {
         <div className={styles.pageHeader}>
           <span className={styles.eyebrow}>Your collection</span>
           <h1 className={styles.pageTitle}>All Postcards</h1>
+          {!loading && (
+            <span className={styles.pageCount}>
+              {allPostcards.length}{" "}
+              {allPostcards.length === 1 ? "card" : "cards"} total
+            </span>
+          )}
         </div>
 
-        {postcards.length === 0 ? (
+        {loading ? (
+          <Loader message="Loading postcards…" />
+        ) : postcards.length === 0 ? (
           <div className={styles.empty}>
             <svg className={styles.emptyIcon} viewBox="0 0 52 52" fill="none">
               <rect
@@ -54,13 +84,23 @@ export default function PostcardsPage() {
                 <PostcardCard
                   key={postcard.id}
                   postcard={postcard}
-                  index={0}
-                  isOwner={true}
-                  onDelete={() => {}}
-                  onUpdate={() => {}}
+                  index={startIdx + i}
+                  isOwner={postcard.ownerId === currentUserId}
+                  onDelete={handleDelete}
+                  onUpdate={handleUpdate}
                 />
               ))}
             </div>
+
+            {totalPages > 1 && (
+              <div className={styles.paginationWrapper}>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
           </>
         )}
       </main>

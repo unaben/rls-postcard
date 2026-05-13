@@ -1,9 +1,10 @@
 import { signIn } from "@/utils/auth";
-import type { handleSubmitArgs } from "../LoginForm.types";
+import type { HandleSubmitLoginFormArgs } from "../LoginForm.types";
+import { validateLoginForm } from "./validateLoginForm";
 
 export const handleSubmit = async (
   e: React.SyntheticEvent,
-  args: handleSubmitArgs
+  args: HandleSubmitLoginFormArgs
 ) => {
   const {
     router,
@@ -11,12 +12,11 @@ export const handleSubmit = async (
     setErrors,
     setLoading,
     setValues,
-    validate,
     values,
   } = args;
 
   e.preventDefault();
-  if (!validate(values, setErrors)) return;
+  if (!validateLoginForm(values, setErrors)) return;
 
   setLoading(true);
   setAuthError("");

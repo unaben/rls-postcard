@@ -1,18 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import cn from "classnames";
-import type {
-  PostcardFormProps,
-  PostcardFormValues,
-} from "./PostcardForm.types";
+import type { PostcardFormValues } from "./PostcardForm.types";
 import AvatarPicker from "@/components/AvatarPicker/AvatarPicker";
 import { AVATARS } from "@/utils/constants";
-import { validate } from "./utils/validate";
+import { useAuth } from "@/hooks/useAuth";
+import { handleSubmit } from "./utils/handleSubmit";
 import styles from "./PostcardForm.module.css";
 
-export default function PostcardForm({ onSubmit, loading }: PostcardFormProps) {
+export default function PostcardForm() {
   const router = useRouter();
+  const { isAuthenticated, currentUserId, user, checked } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [values, setValues] = useState<PostcardFormValues>({
     title: "",
     content: "",
@@ -22,11 +22,20 @@ export default function PostcardForm({ onSubmit, loading }: PostcardFormProps) {
     Partial<Record<keyof PostcardFormValues, string>>
   >({});
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    if (!validate(values, setErrors)) return;
-    await onSubmit(values);
+  const submitArgs = {
+    user,
+    values,
+    router,
+    currentUserId,
+    setIsSubmitting,
+    setErrors,
   };
+
+  useEffect(() => {
+    if (checked && !isAuthenticated) router.replace("/");
+  }, [checked, isAuthenticated, router]);
+
+  if (!checked || !isAuthenticated) return null;
 
   return (
     <div className={styles.wrapper}>
@@ -38,7 +47,11 @@ export default function PostcardForm({ onSubmit, loading }: PostcardFormProps) {
         </p>
       </header>
 
-      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      <form
+        className={styles.form}
+        onSubmit={(e) => handleSubmit(e, submitArgs)}
+        noValidate
+      >
         <div className={styles.field}>
           <AvatarPicker
             selected={values.avatarId}
@@ -62,7 +75,7 @@ export default function PostcardForm({ onSubmit, loading }: PostcardFormProps) {
             placeholder="Give your postcard a title…"
             value={values.title}
             onChange={(e) => setValues({ ...values, title: e.target.value })}
-            disabled={loading}
+            disabled={isSubmitting}
             maxLength={80}
           />
           <span className={styles.counter}>{values.title.length}/80</span>
@@ -83,7 +96,7 @@ export default function PostcardForm({ onSubmit, loading }: PostcardFormProps) {
             placeholder="Write your postcard message here…"
             value={values.content}
             onChange={(e) => setValues({ ...values, content: e.target.value })}
-            disabled={loading}
+            disabled={isSubmitting}
             maxLength={400}
           />
           <span className={styles.counter}>{values.content.length}/400</span>
@@ -97,12 +110,16 @@ export default function PostcardForm({ onSubmit, loading }: PostcardFormProps) {
             type="button"
             className={styles.secondary}
             onClick={() => router.push("/postcards")}
-            disabled={loading}
+            disabled={isSubmitting}
           >
             View All
           </button>
-          <button type="submit" className={styles.submit} disabled={loading}>
-            {loading ? (
+          <button
+            type="submit"
+            className={styles.submit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
               <>
                 <svg
                   className={styles.spinnerInline}

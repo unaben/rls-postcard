@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import type { PostcardFormValues } from "../PostcardForm.types";
 
-export const validate = (
+export const validatePostcardForm = (
   values: PostcardFormValues,
   setErrors: Dispatch<
     SetStateAction<Partial<Record<keyof PostcardFormValues, string>>>
