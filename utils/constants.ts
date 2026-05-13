@@ -58,3 +58,5 @@ export const MOCK_USERS: Array<MockUser> = [
     displayName: "Cara",
   },
 ];
+
+export const CARDS_PER_PAGE = 3;
