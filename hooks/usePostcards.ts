@@ -15,8 +15,6 @@ export function usePostcards() {
   const [currentPage, setCurrentPage] = useLocalStorage("current-page", 1);
   const [loading, setLoading] = useState(true);
 
-  console.log({ currentPage });
-
   const supabase = createBrowserClient();
 
   const reload = async () => {
