@@ -8,11 +8,14 @@ import {
 } from "@/utils/storage";
 import { CARDS_PER_PAGE } from "@/utils/constants";
 import { createBrowserClient } from "@/lib/supabase";
+import useLocalStorage from "./useLocalStorage";
 
 export function usePostcards() {
   const [allPostcards, setAllPostcards] = useState<Postcard[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useLocalStorage("current-page", 1);
   const [loading, setLoading] = useState(true);
+
+  console.log({ currentPage });
 
   const supabase = createBrowserClient();
 
