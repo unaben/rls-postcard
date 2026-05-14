@@ -8,10 +8,12 @@ import { AVATARS } from "@/utils/constants";
 import { useAuth } from "@/hooks/useAuth";
 import { handleSubmit } from "./utils/handleSubmit";
 import styles from "./PostcardForm.module.css";
+import { usePostcards } from "@/hooks/usePostcards";
 
 export default function PostcardForm() {
   const router = useRouter();
   const { isAuthenticated, currentUserId, user, checked } = useAuth();
+  const { postcards } = usePostcards();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [values, setValues] = useState<PostcardFormValues>({
     title: "",
@@ -22,6 +24,10 @@ export default function PostcardForm() {
     Partial<Record<keyof PostcardFormValues, string>>
   >({});
 
+  const checkUserCreatedPostCardLength = postcards.filter(
+    (card) => card.ownerId === currentUserId
+  ).length;
+
   const submitArgs = {
     user,
     values,
@@ -29,6 +35,7 @@ export default function PostcardForm() {
     currentUserId,
     setIsSubmitting,
     setErrors,
+    checkUserCreatedPostCardLength,
   };
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { AVATARS } from "@/utils/constants";
 import { savePostcard, generateId } from "@/utils/storage";
 import type { HandleSubmitPostcardFormArgs } from "../PostcardForm.types";
 import { validatePostcardForm } from "./validatePostcardForm";
-
+import notify from "@/utils/notify";
 
 export const handleSubmit = async (
   e: React.SyntheticEvent,
@@ -10,10 +10,28 @@ export const handleSubmit = async (
 ) => {
   e.preventDefault();
 
-  const { currentUserId, router, setIsSubmitting, user, values, setErrors } =
-    args;
+  const {
+    currentUserId,
+    router,
+    setIsSubmitting,
+    user,
+    values,
+    setErrors,
+    checkUserCreatedPostCardLength,
+  } = args;
+
+  const isUserCreatedPostCardMoreThanFive = checkUserCreatedPostCardLength > 5;
+
+  if (isUserCreatedPostCardMoreThanFive) {
+    notify(
+      "warning",
+      "You've reached the 5 postcard limit. Delete one before creating a new one."
+    );
+    return;
+  }
 
   if (!validatePostcardForm(values, setErrors)) return;
+
   setIsSubmitting(true);
   const avatar = AVATARS.find((a) => a.id === values.avatarId) ?? AVATARS[0];
   const emailPrefix = user?.email?.split("@")[0] ?? "Unknown";

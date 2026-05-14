@@ -22,4 +22,5 @@ export type HandleSubmitPostcardFormArgs = {
   setErrors: Dispatch<
     SetStateAction<Partial<Record<keyof PostcardFormValues, string>>>
   >;
+  checkUserCreatedPostCardLength: number
 };
