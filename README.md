@@ -1,5 +1,7 @@
 # Postcard app
 
+Live: https://rls-postcard.vercel.app/postcards
+
 A simple side project I built to learn supabase with next.js. Its a digital postcard thing where you can create cards, pick an avatar and share them. Other users can see your cards but cant edit or delete them.
 
 ---
