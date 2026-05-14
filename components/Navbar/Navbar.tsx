@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useGreeting } from "@/hooks/useGreeting";
+import { useGreeting } from "@/hooks/useGreeting/useGreeting";
 import { useAuth } from "@/hooks/useAuth";
 import styles from "./Navbar.module.css";
 
