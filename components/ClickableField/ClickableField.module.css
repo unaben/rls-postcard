@@ -1,0 +1,10 @@
+.container {
+  cursor: pointer;
+  /* text-decoration: underline; */
+  transition: all 0.2s;
+}
+
+.copied {
+  color: var(--text-copied);
+  font-weight: bold;
+}

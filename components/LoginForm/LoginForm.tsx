@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import cn from "classnames";
-import type { LoginFormValues } from "./LoginForm.types";
 import { MOCK_USERS } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { handleSubmit } from "./utils/handleSubmit";
+import ClickableField from "../ClickableField/ClickableField";
+import type { LoginFormValues } from "./LoginForm.types";
 import styles from "./LoginForm.module.css";
 
 
@@ -38,12 +39,14 @@ export default function LoginForm() {
       </header>
 
       <div className={styles.hint}>
-        <strong>Demo accounts —</strong>
+        <strong>Demo accounts — click email/password to copy</strong>
         <ul className={styles.hintList}>
           {MOCK_USERS.map((u) => (
             <li key={u.userId}>
               <span className={styles.hintUser}>{u.displayName}:</span>{" "}
-              {u.email} · {u.password}
+              <ClickableField id={u.userId} text={u.email} type="email" />
+              {" · "}
+              <ClickableField id={u.userId} text={u.password} type="password" />
             </li>
           ))}
         </ul>
