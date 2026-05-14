@@ -18,6 +18,7 @@ export const handleSubmit = async (
     values,
     setErrors,
     checkUserCreatedPostCardLength,
+    setCurrentPage,
   } = args;
 
   const isUserCreatedPostCardMoreThanFive = checkUserCreatedPostCardLength > 5;
@@ -50,6 +51,7 @@ export const handleSubmit = async (
       ownerName,
       createdAt: new Date().toISOString(),
     });
+    setCurrentPage(1);
     router.push("/postcards");
   } catch (err) {
     console.error("Failed to save postcard:", (err as Error).message);

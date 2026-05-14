@@ -86,5 +86,6 @@ export function usePostcards() {
     handleDelete,
     handleUpdate,
     reload,
+    setCurrentPage
   };
 }

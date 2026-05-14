@@ -13,7 +13,7 @@ import { usePostcards } from "@/hooks/usePostcards";
 export default function PostcardForm() {
   const router = useRouter();
   const { isAuthenticated, currentUserId, user, checked } = useAuth();
-  const { postcards } = usePostcards();
+  const { allPostcards, setCurrentPage } = usePostcards();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [values, setValues] = useState<PostcardFormValues>({
     title: "",
@@ -24,7 +24,7 @@ export default function PostcardForm() {
     Partial<Record<keyof PostcardFormValues, string>>
   >({});
 
-  const checkUserCreatedPostCardLength = postcards.filter(
+  const checkUserCreatedPostCardLength = allPostcards.filter(
     (card) => card.ownerId === currentUserId
   ).length;
 
@@ -36,6 +36,7 @@ export default function PostcardForm() {
     setIsSubmitting,
     setErrors,
     checkUserCreatedPostCardLength,
+    setCurrentPage
   };
 
   useEffect(() => {
