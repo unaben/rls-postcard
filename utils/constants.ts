@@ -61,4 +61,4 @@ export const MOCK_USERS: Array<MockUser> = [
 
 export const CARDS_PER_PAGE = 3;
 
-export const MAX_CREATE_CARD_PER_USER = 5
+export const POSTCARDS_LIMIT_PER_USER = 5
