@@ -1,4 +1,4 @@
-import { AVATARS, CREATE_USER_CARDS_LIMIT } from "@/utils/constants";
+import { AVATARS, MAX_CREATE_CARD_PER_USER } from "@/utils/constants";
 import { savePostcard, generateId } from "@/utils/storage";
 import type { HandleSubmitPostcardFormArgs } from "../PostcardForm.types";
 import { validatePostcardForm } from "./validatePostcardForm";
@@ -22,12 +22,12 @@ export const handleSubmit = async (
   } = args;
 
   const isUserCreatedPostCardMoreThanFive =
-    userCreatedPostCardCount > CREATE_USER_CARDS_LIMIT;
+    userCreatedPostCardCount > MAX_CREATE_CARD_PER_USER;
 
   if (isUserCreatedPostCardMoreThanFive) {
     notify(
       "warning",
-      "You've reached the 5 postcard limit. Delete one before creating a new one."
+      `You've reached the ${MAX_CREATE_CARD_PER_USER} postcard limit. Delete one before creating a new one.`
     );
     return;
   }
