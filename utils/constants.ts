@@ -60,3 +60,5 @@ export const MOCK_USERS: Array<MockUser> = [
 ];
 
 export const CARDS_PER_PAGE = 3;
+
+export const CREATE_USER_CARDS_LIMIT = 5

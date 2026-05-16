@@ -24,7 +24,7 @@ export default function PostcardForm() {
     Partial<Record<keyof PostcardFormValues, string>>
   >({});
 
-  const checkUserCreatedPostCardLength = allPostcards.filter(
+  const userCreatedPostCardCount = allPostcards.filter(
     (card) => card.ownerId === currentUserId
   ).length;
 
@@ -35,7 +35,7 @@ export default function PostcardForm() {
     currentUserId,
     setIsSubmitting,
     setErrors,
-    checkUserCreatedPostCardLength,
+    userCreatedPostCardCount,
     setCurrentPage
   };
 

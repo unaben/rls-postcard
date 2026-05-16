@@ -1,4 +1,4 @@
-import { AVATARS } from "@/utils/constants";
+import { AVATARS, CREATE_USER_CARDS_LIMIT } from "@/utils/constants";
 import { savePostcard, generateId } from "@/utils/storage";
 import type { HandleSubmitPostcardFormArgs } from "../PostcardForm.types";
 import { validatePostcardForm } from "./validatePostcardForm";
@@ -17,11 +17,12 @@ export const handleSubmit = async (
     user,
     values,
     setErrors,
-    checkUserCreatedPostCardLength,
+    userCreatedPostCardCount,
     setCurrentPage,
   } = args;
 
-  const isUserCreatedPostCardMoreThanFive = checkUserCreatedPostCardLength > 5;
+  const isUserCreatedPostCardMoreThanFive =
+    userCreatedPostCardCount > CREATE_USER_CARDS_LIMIT;
 
   if (isUserCreatedPostCardMoreThanFive) {
     notify(
